@@ -16,7 +16,7 @@
 ## Installation
 
 ```shell
-composer require "chomyeong/errorcode"
+composer require "chomyeong/errorcode" "v1.0.0"
 ```
 
 ## Usage
@@ -36,7 +36,7 @@ return array(
 调用：
 
 ```php
-use Chomyeong\Error;
+use chomyeong\errorcode\Error
 $err = new Error();
 $err->responseError(ERROR_PARAM); // 相应结果 参数错误
 // {"err":1,"errMsg":"\u53c2\u6570\u9519\u8bef\uff01","data":{},"isError":true}
