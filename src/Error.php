@@ -195,7 +195,7 @@ class Error
     public function init()
     {
         require_once 'Exceptions/Exception.php';
-        $rootDir = str_replace('\\', '/', realpath(dirname(dirname(__DIR__)).'/'))."/";
+        $rootDir = str_replace('\\', '/', realpath(dirname(dirname(dirname(dirname(__DIR__)).'/'))))."/";
         $target = $rootDir.'/'.'errors';
         if (file_exists($target)) {
 
