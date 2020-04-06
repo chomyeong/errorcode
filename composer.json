@@ -1,6 +1,6 @@
 {
     "name": "chomyeong/errorcode",
-    "description": "api error code for php",
+    "description": "API error code for php",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-       "php": ">=5.3"
+       "php": ">=5.4"
     },
     "autoload": {
         "psr-4": {
