@@ -7,7 +7,21 @@
 ```php
 $ret = [
     'code'=>100,
-    'msg'=>'message',
+    'msg'=>'用户名错误',
+    'data'=>[],
+];
+
+echo json_encode($ret);
+$ret = [
+    'code'=>101,
+    'msg'=>'密码错误',
+    'data'=>[],
+];
+
+echo json_encode($ret);
+$ret = [
+    'code'=>1011,
+    'msg'=>'参数错误',
     'data'=>[],
 ];
 
