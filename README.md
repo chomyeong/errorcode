@@ -75,7 +75,7 @@ return [
 引入扩展包：
 
 ```php
-use chomyeong\errorcode\Error
+use chomyeong\errorcode\Error;
 $err = new Error();
 ```
 
@@ -87,7 +87,14 @@ $err->responseError(ERROR_PARAM);
 
 返回格式：
 
-![image-20200406130217004](/Users/zhaoming/Library/Application Support/typora-user-images/image-20200406130217004.png)
+```javascript
+{
+    "err": 1,
+    "errMsg": "参数错误！",
+    "data": {},
+    "isError": true
+}
+```
 
 响应成功：
 
@@ -104,7 +111,19 @@ $err->responseSuccess($data);
 
 返回格式：
 
-![image-20200406125922294](/Users/zhaoming/Library/Application Support/typora-user-images/image-20200406125922294.png)
+```javascript
+{
+    "err": 0,
+    "errMsg": "",
+    "data": {
+        "info": {
+            "id": 1,
+            "username": "chomyeong"
+        }
+    },
+    "isError": false
+}
+```
 
 默认错误码：
 
