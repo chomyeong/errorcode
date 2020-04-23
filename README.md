@@ -165,7 +165,7 @@ errMsgBody：消息文本
 
 比如只想修改错误码：
 
-```json
+```php
 $options = [
     'errBody'=>'code',
 ];
