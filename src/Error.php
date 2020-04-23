@@ -21,7 +21,9 @@
 
 namespace chomyeong\errorcode;
 
-class Error
+use Pimple\Container;
+
+class Error extends Container
 {
 
     private $errCode = 0;
@@ -29,27 +31,15 @@ class Error
     private $retData = [];
     private $err2Msg = [];
 
-    static $errors = [
-        ['errDefine' => 'ERROR_OK', 'index' => 0, 'errMsg' => ''],
 
-        // 通用错误
-        ['errDefine' => 'ERROR_PARAM', 'index' => 1, 'errMsg' => '参数错误！'],
-        ['errDefine' => 'ERROR_SYSTEM', 'errMsg' => '系统错误！'],
-        ['errDefine' => 'ERROR_SESSION_ERROR', 'errMsg' => '会话不存在！'],
-        ['errDefine' => 'ERROR_SESSION_PRIVILEGE_ERROR', 'errMsg' => '权限不正确！'],
-        ['errDefine' => 'ERROR_MODIFY_INFO_FAILED', 'errMsg' => '修改数据失败！'],
-
-        // 账号相关错误
-        ['errDefine' => 'ERROR_ACCOUNT_LOGIN_FAILED', 'index' => 101, 'errMsg' => '账号名或密码错误！'],
-        ['errDefine' => 'ERROR_ACCOUNT_RELOGIN_FAILED_WRONG_TOKEN', 'errMsg' => '重登录失败：令牌错误!'],
-        ['errDefine' => 'ERROR_ACCOUNT_RELOGIN_FAILED_TOKEN_TIMEOUT', 'errMsg' => '重登录失败：令牌已超时!'],
-        ['errDefine' => 'ERROR_ACCOUNT_PASSPORT_EXISTS', 'errMsg' => '账号已存在！'],
-    ];
-
-    public function __construct()
+    public function __construct(array $options = [])
     {
+        $this['config'] = function () use ($options) {
+            return new Config($options);
+        };
+
         $this->init();
-        $errors = self::$errors;
+        $errors = ErrorCode::$errors;
         $nowIndex = -1;
         $definedErr = [];
 
@@ -133,11 +123,16 @@ class Error
     private function loadDefaultView($isError = false)
     {
 
+        $err = $this['config']->errBody ?? 'err';
+        $errMsg = $this['config']->errMsgBody ?? 'errMsg';
+        $data = $this['config']->dataBody ?? 'data';
+        $isErr = $this['config']->isErrorBody ?? 'isError';
+
         $data = [
-            'err'     => $this->errCode,
-            'errMsg'  => $this->errMsg,
-            'data'    => (object) $this->retData,
-            'isError' => $isError,
+            $err    => $this->errCode,
+            $errMsg => $this->errMsg,
+            $data   => (object) $this->retData,
+            $isErr  => $isError,
         ];
 
         echo json_encode($data);
@@ -173,7 +168,7 @@ class Error
      */
     static function getAllErrors()
     {
-        return self::$errors;
+        return ErrorCode::$errors;
     }
 
     /**
@@ -182,7 +177,7 @@ class Error
      */
     static function registerErrors($errors)
     {
-        self::$errors = array_merge(self::$errors, $errors);
+        ErrorCode::$errors = array_merge(ErrorCode::$errors, $errors);
     }
 
     /**

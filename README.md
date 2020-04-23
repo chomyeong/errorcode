@@ -125,6 +125,69 @@ $err->responseSuccess($data);
 }
 ```
 
+修改响应格式：
+
+```php
+$options = [
+    'dataBody'=>'info',
+    'errBody'=>'code',
+    'isErrorBody'=>'error',
+    'errMsgBody'=>'message',
+];
+$err = new Error($options);
+```
+
+返回格式：
+
+```json
+{
+    "code": 0,
+    "message": "",
+    "info": {
+        "info": {
+            "id": 1,
+            "name": "chomyeong"
+        }
+    },
+    "error": false
+}
+```
+
+参数说明：
+
+dataBody：响应数据体
+
+errBody：错误码
+
+isErrorBody：错误标记
+
+errMsgBody：消息文本
+
+比如只想修改错误码：
+
+```json
+$options = [
+    'errBody'=>'code',
+];
+$err = new Error($options);
+```
+
+返回格式：
+
+```json
+{
+    "code": 0,
+    "errMsg": "",
+    "data": {
+        "info": {
+            "id": 1,
+            "name": "chomyeong"
+        }
+    },
+    "isError": false
+}
+```
+
 默认错误码：
 
 ```
